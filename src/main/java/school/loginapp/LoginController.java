@@ -119,7 +119,7 @@ public class LoginController implements Initializable {
             Scene scene = new Scene(root);
             adminstage.setScene(scene);
             adminstage.setTitle("Admin Dashboard");
-            adminstage.setResizable(false);
+            adminstage.setResizable(true);
             adminstage.show();
 
 
