@@ -19,15 +19,17 @@ import java.util.ResourceBundle;
 public class AdminController implements Initializable
 {
     @FXML
-    private TextField id;
+    private TextField id = null;
     @FXML
-    private TextField firstname;
+    private TextField firstname = null;
     @FXML
-    private TextField lastname;
+    private TextField lastname = null;
     @FXML
-    private TextField email;
+    private TextField email = null;
     @FXML
-    private DatePicker dob;
+    private DatePicker dob = null;
+    @FXML
+    private Label emptyTextFields;
     @FXML
     private TableView<StudentData> studenttable;
     @FXML
@@ -85,19 +87,30 @@ public class AdminController implements Initializable
     @FXML
     private void addStudent(ActionEvent event)
     {
-        String sql = "INSERT INTO `students`(`id`, `fname`, `lname`, `email`, `DOB`) VALUES (? , ?, ?, ?, ?)";
+        String sql = "INSERT INTO `students`(`fname`, `lname`, `email`, `DOB`) VALUES (?, ?, ?, ?)";
+
+
         try
         {
             Connection conn = dbConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, this.id.getText());
-            stmt.setString(2, this.firstname.getText());
-            stmt.setString(3, this.lastname.getText());
-            stmt.setString(4, this.email.getText());
-            stmt.setString(5, this.dob.getEditor().getText());
 
-            stmt.execute();
-            conn.close();
+            if(this.firstname.getText().equals("") || this.lastname.getText().equals("") || this.email.getText().equals("") || this.dob.getEditor().getText().equals("")){
+                this.emptyTextFields.setText("      Complete all fields!");
+
+            }else
+
+                stmt.setString(1, this.firstname.getText());
+                stmt.setString(2, this.lastname.getText());
+                stmt.setString(3, this.email.getText());
+                stmt.setString(4, this.dob.getEditor().getText());
+
+                stmt.execute();
+                conn.close();
+
+                this.emptyTextFields.setText("");
+
+
         }
         catch (SQLException e)
         {

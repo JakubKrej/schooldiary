@@ -8,4 +8,5 @@ module SchoolSystem1 {
     exports school.loginapp to javafx.graphics;
     opens school.loginapp to javafx.fxml;
     opens admin to javafx.fxml, javafx.base;
-}
+    //opens  students to javafx.fxml;
+ }
