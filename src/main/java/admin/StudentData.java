@@ -5,11 +5,11 @@ import javafx.beans.property.StringProperty;
 
 public class StudentData {
 
-    public final StringProperty ID;
-    public final StringProperty firstName;
-    public final StringProperty lastName;
-    public final StringProperty email;
-    public final StringProperty dob;
+    private final StringProperty ID;
+    private final StringProperty firstName;
+    private final StringProperty lastName;
+    private final StringProperty email;
+    private final StringProperty dob;
 
     public StudentData (String id, String firstname, String lastname,String email, String dob){
         this.ID = new SimpleStringProperty(id);

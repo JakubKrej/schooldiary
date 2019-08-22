@@ -19,17 +19,15 @@ import java.util.ResourceBundle;
 public class AdminController implements Initializable
 {
     @FXML
-    private TextField id = null;
+    private TextField id;
     @FXML
-    private TextField firstname = null;
+    private TextField firstname;
     @FXML
-    private TextField lastname = null;
+    private TextField lastname;
     @FXML
-    private TextField email = null;
+    private TextField email;
     @FXML
-    private DatePicker dob = null;
-    @FXML
-    private Label emptyTextFields;
+    private DatePicker dob;
     @FXML
     private TableView<StudentData> studenttable;
     @FXML
@@ -87,30 +85,19 @@ public class AdminController implements Initializable
     @FXML
     private void addStudent(ActionEvent event)
     {
-        String sql = "INSERT INTO `students`(`fname`, `lname`, `email`, `DOB`) VALUES (?, ?, ?, ?)";
-
-
+        String sql = "INSERT INTO `students`(`id`, `fname`, `lname`, `email`, `DOB`) VALUES (? , ?, ?, ?, ?)";
         try
         {
             Connection conn = dbConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, this.id.getText());
+            stmt.setString(2, this.firstname.getText());
+            stmt.setString(3, this.lastname.getText());
+            stmt.setString(4, this.email.getText());
+            stmt.setString(5, this.dob.getEditor().getText());
 
-            if(this.firstname.getText().equals("") || this.lastname.getText().equals("") || this.email.getText().equals("") || this.dob.getEditor().getText().equals("")){
-                this.emptyTextFields.setText("      Complete all fields!");
-
-            }else
-
-                stmt.setString(1, this.firstname.getText());
-                stmt.setString(2, this.lastname.getText());
-                stmt.setString(3, this.email.getText());
-                stmt.setString(4, this.dob.getEditor().getText());
-
-                stmt.execute();
-                conn.close();
-
-                this.emptyTextFields.setText("");
-
-
+            stmt.execute();
+            conn.close();
         }
         catch (SQLException e)
         {
