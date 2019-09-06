@@ -10,10 +10,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ResourceBundle;
 
 public class AdminController implements Initializable
@@ -40,6 +37,10 @@ public class AdminController implements Initializable
     private TableColumn<StudentData, String> emailcolumn;
     @FXML
     private TableColumn<StudentData, String> dobcolumn;
+    @FXML
+    private Label errorLABEL;
+    @FXML
+    private Button deleteBUTTON;
 
     private ObservableList<StudentData> data;
     private dbConnection dc;
@@ -103,6 +104,7 @@ public class AdminController implements Initializable
         {
             System.err.println("Got an exception!");
             System.err.println(e.getMessage());
+            this.errorLABEL.setText("                       Wprowadź poprawne dane!");
         }
     }
 
@@ -117,4 +119,41 @@ public class AdminController implements Initializable
 
 
     }
+
+    @FXML
+    private void deleteStudent(ActionEvent event)  {
+
+
+
+        if(studenttable.getSelectionModel().getSelectedItem() != null) {
+            try {
+
+                Connection conn = dbConnection.getConnection();
+
+                StudentData selecterow = studenttable.getSelectionModel().getSelectedItem();
+                String value = selecterow.getEmail();
+                String cell = "email";
+                String sqldelete = "DELETE FROM students WHERE email = '" + value + "' ;";
+                System.out.println(sqldelete);
+
+                Statement stmt = null;
+                stmt = conn.createStatement();
+                stmt.executeUpdate(sqldelete);
+
+                conn.close();
+
+                studenttable.getItems().removeAll(selecterow);
+                System.out.println(cell);
+
+            } catch (SQLException e) {
+                System.out.println("Nie moge usunąć danych " + e.getMessage());
+            }
+        }else{
+            System.out.println("Wybierz Studenta!");
+        }
+
+
+    }
+
+
 }

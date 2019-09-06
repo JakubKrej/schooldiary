@@ -66,12 +66,22 @@
                                     <Insets left="15.0" right="15.0" />
                                  </VBox.margin>
                               </DatePicker>
+                              <Label fx:id="errorLABEL" prefHeight="17.0" prefWidth="351.0">
+                                 <VBox.margin>
+                                    <Insets bottom="7.0" left="15.0" right="15.0" top="7.0" />
+                                 </VBox.margin>
+                              </Label>
                               <Button mnemonicParsing="false" onAction="#addStudent" prefHeight="17.0" prefWidth="313.0" text="Add Entry" VBox.vgrow="ALWAYS">
                                  <VBox.margin>
                                     <Insets left="15.0" right="15.0" />
                                  </VBox.margin>
                               </Button>
                               <Button mnemonicParsing="false" onAction="#clearFields" prefHeight="17.0" prefWidth="313.0" text="Clear">
+                                 <VBox.margin>
+                                    <Insets left="15.0" right="15.0" />
+                                 </VBox.margin>
+                              </Button>
+                              <Button fx:id="deleteBUTTON" mnemonicParsing="false" onAction="#deleteStudent" prefHeight="25.0" prefWidth="316.0" text="Delate Student">
                                  <VBox.margin>
                                     <Insets left="15.0" right="15.0" />
                                  </VBox.margin>
