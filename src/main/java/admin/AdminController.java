@@ -39,6 +39,8 @@ public class AdminController implements Initializable
     @FXML
     private TableView<StudentData> studentTABLE;
     @FXML
+    private TableView<StudentData> marksTABLE;
+    @FXML
     private TableColumn<StudentData, String> idcolumn;
     @FXML
     private TableColumn<StudentData, String> firstnamecolumn;
@@ -58,6 +60,10 @@ public class AdminController implements Initializable
     private Label emailLABEL;
     @FXML
     private Label dobLABEL;
+    @FXML
+    private ComboBox selectmarkBOX;
+    @FXML
+    private Button addmarkBUTTON;
     @FXML
     private Button deleteBUTTON;
 
@@ -87,6 +93,19 @@ public class AdminController implements Initializable
             }
         });
     }
+
+    @FXML
+    public void selectMark(){
+
+        
+    }
+
+    @FXML
+    private void addMark(int mark){
+
+    }
+
+
     @FXML
     private void selectedStudent(ActionEvent event){
         if(studentTABLE.getSelectionModel().getSelectedItem()!=null){
