@@ -178,15 +178,15 @@
                                              <children>
                                                 <Label prefHeight="17.0" prefWidth="138.0" text="NEW MARK">
                                                    <VBox.margin>
-                                                      <Insets left="230.0" right="220.0" top="70.0" />
+                                                      <Insets left="250.0" right="220.0" top="70.0" />
                                                    </VBox.margin>
                                                 </Label>
                                                 <ComboBox fx:id="selectmarkBOX" prefWidth="150.0">
                                                    <VBox.margin>
-                                                      <Insets left="200.0" right="200.0" top="50.0" />
+                                                      <Insets left="230.0" right="200.0" top="50.0" />
                                                    </VBox.margin>
                                                 </ComboBox>
-                                                <Button fx:id="addmarkBUTTON" mnemonicParsing="false" onAction="#selectMark" prefHeight="25.0" prefWidth="359.0" text="Button">
+                                                <Button fx:id="addmarkBUTTON" mnemonicParsing="false" onAction="#addMark" prefHeight="25.0" prefWidth="359.0" text="Button">
                                                    <VBox.margin>
                                                       <Insets left="100.0" top="50.0" />
                                                    </VBox.margin>

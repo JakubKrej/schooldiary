@@ -10,6 +10,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import school.loginapp.Option;
 
 
 import java.net.URL;
@@ -61,7 +62,7 @@ public class AdminController implements Initializable
     @FXML
     private Label dobLABEL;
     @FXML
-    private ComboBox selectmarkBOX;
+    private ComboBox<Marks> selectmarkBOX;
     @FXML
     private Button addmarkBUTTON;
     @FXML
@@ -92,16 +93,20 @@ public class AdminController implements Initializable
 
             }
         });
+
+        this.selectmarkBOX.setItems(FXCollections.observableArrayList(Marks.values()));
     }
 
     @FXML
     public void selectMark(){
 
-        
+
+
+
     }
 
     @FXML
-    private void addMark(int mark){
+    private void addMark(){
 
     }
 
