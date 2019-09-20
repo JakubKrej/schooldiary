@@ -45,6 +45,9 @@ public class LoginController implements Initializable {
     @FXML
     private Button loginbutton;
 
+    @FXML
+    private Button buttonSIGN;
+
 
     public void initialize(URL url, ResourceBundle rb) {
         if(this.loginModel.isDatabaseConnected()){
@@ -92,7 +95,6 @@ public class LoginController implements Initializable {
             FXMLLoader loader = new FXMLLoader();
             Pane root = (Pane)loader.load(getClass().getResource("/fxml/studentFXML.fxml").openStream());
 
-            AdminController adminController = (AdminController)loader.getController();
 
             Scene scene = new Scene(root);
             adminstage.setScene(scene);
@@ -114,7 +116,6 @@ public class LoginController implements Initializable {
             FXMLLoader loader = new FXMLLoader();
             Pane root = (Pane)loader.load(getClass().getResource("/fxml/adminFXML.fxml").openStream());
 
-            AdminController adminController = (AdminController)loader.getController();
 
             Scene scene = new Scene(root);
             adminstage.setScene(scene);
@@ -127,5 +128,30 @@ public class LoginController implements Initializable {
             e.printStackTrace();
         }
 
+    }
+
+    @FXML
+    public void signUp(ActionEvent event){
+
+
+        try{
+
+            Stage stage = (Stage) this.buttonSIGN.getScene().getWindow();
+            stage.close();
+
+            Stage singstage = new Stage();
+            FXMLLoader loader = new FXMLLoader();
+            Pane root = (Pane)loader.load(getClass().getResource("/fxml/signFXML.fxml").openStream());
+
+            Scene scene = new Scene(root);
+            singstage.setScene(scene);
+            singstage.setTitle("SIGN UP!");
+            singstage.setResizable(true);
+            singstage.show();
+
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

@@ -4,6 +4,7 @@ module SchoolSystem1 {
     requires javafx.controls;
     requires javafx.fxml;
     requires java.sql;
+    requires java.datatransfer;
 
     exports school.loginapp to javafx.graphics;
     opens school.loginapp to javafx.fxml;
