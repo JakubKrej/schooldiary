@@ -10,7 +10,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
-import school.loginapp.Option;
 
 
 import java.net.URL;
@@ -40,7 +39,7 @@ public class AdminController implements Initializable
     @FXML
     private TableView<StudentData> studentTABLE;
     @FXML
-    private TableView<StudentData> marksTABLE;
+    private TableView<MarksData> marksTABLE;
     @FXML
     private TableColumn<StudentData, String> idcolumn;
     @FXML
@@ -67,6 +66,13 @@ public class AdminController implements Initializable
     private Button addmarkBUTTON;
     @FXML
     private Button deleteBUTTON;
+    @FXML
+    private TableColumn<MarksData, String> IDcolumnmarks;
+    @FXML
+    private TableColumn<MarksData, String> mark1column;
+    @FXML
+    private TableColumn<MarksData,String> mark2column;
+
 
     private ObservableList<StudentData> data;
     private dbConnection dc;
@@ -83,6 +89,8 @@ public class AdminController implements Initializable
         studentTABLE.setOnMousePressed(new EventHandler<MouseEvent>() {
 
 
+            private ObservableList<MarksData> data1;
+
             @Override
             public void handle(MouseEvent event) {
 
@@ -90,6 +98,41 @@ public class AdminController implements Initializable
                 lastnameLABEL.setText(studentTABLE.getSelectionModel().getSelectedItem().getLastName());
                 emailLABEL.setText(studentTABLE.getSelectionModel().getSelectedItem().getEmail());
                 dobLABEL.setText(studentTABLE.getSelectionModel().getSelectedItem().getDob());
+
+                if(studentTABLE.getSelectionModel().getSelectedItem()!=null){
+
+                    try {
+                        Connection conn = dbConnection.getConnection();
+                        data1 = FXCollections.observableArrayList();
+
+                        StudentData cellectstudenttable = studentTABLE.getSelectionModel().getSelectedItem();
+                        String value =  cellectstudenttable.getID();
+
+                        System.out.println(value);
+
+                        String sqlmarks = "SELECT * FROM stmarks WHERE id = '" + value + "' ;";
+                        System.out.println( sqlmarks);
+
+
+                        ResultSet rs = conn.createStatement().executeQuery(sqlmarks);
+                        while (rs.next()) {
+                            this.data1.add(new MarksData(rs.getString(1),rs.getString(2),rs.getString(3)));
+                        }
+
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+
+                    IDcolumnmarks.setCellValueFactory(new PropertyValueFactory<MarksData,String>("ID"));
+                    mark1column.setCellValueFactory(new PropertyValueFactory<MarksData,String>("ID"));
+                    mark2column.setCellValueFactory(new PropertyValueFactory<MarksData,String>("ID"));
+
+
+
+                    marksTABLE.setItems(null);
+                    marksTABLE.setItems(data1);
+
+                }
 
             }
         });
@@ -108,6 +151,19 @@ public class AdminController implements Initializable
     @FXML
     private void addMark(){
 
+        StudentData cellectstudenttable = studentTABLE.getSelectionModel().getSelectedItem();
+        String value =  cellectstudenttable.getID();
+
+
+        String sql = "INSERT INTO 'stmarks' ('id', 'mark1', 'mark2'  ";
+
+        try {
+            Connection conn = dbConnection.getConnection();
+
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -156,7 +212,6 @@ public class AdminController implements Initializable
                 this.data.add(new StudentData(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
             }
 
-            //ResultSet rs2 = conn.createStatement().executeQuery("SELECT id,fname,lname FROM students");
         }
         catch (SQLException e)
         {
