@@ -1,7 +1,7 @@
 package admin;
 
 public enum Marks {
-    niedostateczny , dopuszczający , dostateczny, dobry, bardzodobry, celujący ;
+    Niedostateczny, Dopuszczający, Dostateczny, Dobry, Bardzodobry, Celujący;
 
     private Marks(){}
 

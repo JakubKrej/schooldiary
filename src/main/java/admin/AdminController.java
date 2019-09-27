@@ -1,6 +1,7 @@
 package admin;
 
 import dbUtil.dbConnection;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -74,6 +75,7 @@ public class AdminController implements Initializable
     private TableColumn<MarksData,String> mark2column;
 
 
+
     private ObservableList<StudentData> data;
     private dbConnection dc;
 
@@ -84,6 +86,15 @@ public class AdminController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         this.dc = new dbConnection();
+
+        addmarkBUTTON.setOnMousePressed(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+
+                System.out.println(selectmarkBOX.getValue().toString());
+
+            }
+        });
 
 
         studentTABLE.setOnMousePressed(new EventHandler<MouseEvent>() {
@@ -98,6 +109,7 @@ public class AdminController implements Initializable
                 lastnameLABEL.setText(studentTABLE.getSelectionModel().getSelectedItem().getLastName());
                 emailLABEL.setText(studentTABLE.getSelectionModel().getSelectedItem().getEmail());
                 dobLABEL.setText(studentTABLE.getSelectionModel().getSelectedItem().getDob());
+
 
                 if(studentTABLE.getSelectionModel().getSelectedItem()!=null){
 
@@ -132,6 +144,7 @@ public class AdminController implements Initializable
                     marksTABLE.setItems(null);
                     marksTABLE.setItems(data1);
 
+
                 }
 
             }
@@ -143,22 +156,28 @@ public class AdminController implements Initializable
     @FXML
     public void selectMark(){
 
-
+        System.out.println( selectmarkBOX.getSelectionModel().getSelectedItem());
 
 
     }
 
     @FXML
-    private void addMark(){
+    private void addMark(ActionEvent event){
 
         StudentData cellectstudenttable = studentTABLE.getSelectionModel().getSelectedItem();
         String value =  cellectstudenttable.getID();
 
+        String mark = selectmarkBOX.getValue().toString();
 
-        String sql = "INSERT INTO 'stmarks' ('id', 'mark1', 'mark2')  ";
+        String sql = "INSERT INTO 'stmarks' ('mark1') VALUES ('" + mark + "') ;" ;
 
         try {
             Connection conn = dbConnection.getConnection();
+            PreparedStatement stmt5 = conn.prepareStatement(sql);
+
+            stmt5.setString(1, this.selectmarkBOX.getValue().toString());
+            //stmt5.setString(2, this.selectmarkBOX.);
+
 
 
         }catch (SQLException e) {
