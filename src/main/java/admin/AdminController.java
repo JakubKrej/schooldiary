@@ -124,8 +124,8 @@ public class AdminController implements Initializable
                     }
 
                     IDcolumnmarks.setCellValueFactory(new PropertyValueFactory<MarksData,String>("ID"));
-                    mark1column.setCellValueFactory(new PropertyValueFactory<MarksData,String>("ID"));
-                    mark2column.setCellValueFactory(new PropertyValueFactory<MarksData,String>("ID"));
+                    mark1column.setCellValueFactory(new PropertyValueFactory<MarksData,String>("mark1"));
+                    mark2column.setCellValueFactory(new PropertyValueFactory<MarksData,String>("mark2"));
 
 
 
@@ -155,7 +155,7 @@ public class AdminController implements Initializable
         String value =  cellectstudenttable.getID();
 
 
-        String sql = "INSERT INTO 'stmarks' ('id', 'mark1', 'mark2'  ";
+        String sql = "INSERT INTO 'stmarks' ('id', 'mark1', 'mark2')  ";
 
         try {
             Connection conn = dbConnection.getConnection();
