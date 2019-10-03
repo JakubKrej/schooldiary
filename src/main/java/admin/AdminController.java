@@ -267,42 +267,51 @@ public class AdminController implements Initializable
     }
 
     @FXML
-    private void addStudent(ActionEvent event)
-    {
+    private void addStudent(ActionEvent event) {
         String sql = "INSERT INTO `students`( `fname`, `lname`, `email`, `DOB`) VALUES ( ?, ?, ?, ?)";
-        try
-        {
+        String newstudent = "SELECT id FROM students WHERE id = (SELECT MAX(id) FROM students)";
+
+        this.errorLABEL.setText("");
+
+        try {
             Connection conn = dbConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
-
-            stmt.setString(1, this.firstname.getText());
-            stmt.setString(2, this.lastname.getText());
-            stmt.setString(3, this.email.getText());
-            stmt.setString(4, this.dob.getEditor().getText());
-
-            String newstudent = "SELECT id FROM students WHERE id = (SELECT MAX(id) FROM students)";
-
-
             ResultSet rs = conn.createStatement().executeQuery(newstudent);
-            System.out.println(rs.getString(1));
-            String idlaststudent = rs.getString(1);
-            int val = Integer.valueOf(idlaststudent) + 1;
 
-            String newtab = "CREATE TABLE '" + val  + "' ( '1' TEXT );";
-            PreparedStatement ps = conn.prepareStatement(newtab);
-            System.out.println(newtab);
-            ps.execute();
+            if (this.firstname.getText().equals("") || this.lastname.getText().equals("") || this.email.getText().equals("") || this.dob.getEditor().getText().equals("")) {
+                this.errorLABEL.setText("                       Wprowadź poprawne dane!");
+            } else {
 
-            stmt.execute();
+                stmt.setString(1, this.firstname.getText());
+                stmt.setString(2, this.lastname.getText());
+                stmt.setString(3, this.email.getText());
+                stmt.setString(4, this.dob.getEditor().getText());
+
+
+                //System.out.println(rs.getString(1));
+                String idlaststudent = rs.getString(1);
+                int val = Integer.valueOf(idlaststudent) + 1;
+
+                String newtab = "CREATE TABLE '" + val + "' ( '1' TEXT );";
+                PreparedStatement ps = conn.prepareStatement(newtab);
+                System.out.println(newtab);
+
+                ps.execute();
+                stmt.execute();
+
+
+            }
+
             conn.close();
-        }
-        catch (SQLException e)
-        {
+        } catch (SQLException e) {
             System.err.println("Got an exception!");
             System.err.println(e.getMessage());
             this.errorLABEL.setText("                       Wprowadź poprawne dane!");
         }
     }
+
+
+
 
     @FXML
     private void clearFields(ActionEvent event){
