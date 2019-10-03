@@ -169,15 +169,25 @@ public class AdminController implements Initializable
 
         String mark = selectmarkBOX.getValue().toString();
 
-        String sql = "INSERT INTO 'stmarks' ('mark1') VALUES ('" + mark + "') ;" ;
+        String newcol = "CREATE TABLE "+ value + " (  )";
+
+        String sql = "INSERT INTO 'stmarks' ('mark3') VALUES ('" + mark + "') ;" ;
 
         try {
             Connection conn = dbConnection.getConnection();
             PreparedStatement stmt5 = conn.prepareStatement(sql);
 
-            stmt5.setString(1, this.selectmarkBOX.getValue().toString());
-            //stmt5.setString(2, this.selectmarkBOX.);
+            PreparedStatement ile = conn.prepareStatement(newcol);
 
+
+            if(this.selectmarkBOX.getValue().toString() != null) {
+                //stmt5.setString(1, this.selectmarkBOX.getEditor().getText());
+                System.out.println(ile);
+
+                System.out.println(this.selectmarkBOX.getEditor().getText());
+            }else{
+                System.out.println( "Pole jest puste!");
+            }
 
 
         }catch (SQLException e) {
@@ -269,6 +279,19 @@ public class AdminController implements Initializable
             stmt.setString(2, this.lastname.getText());
             stmt.setString(3, this.email.getText());
             stmt.setString(4, this.dob.getEditor().getText());
+
+            String newstudent = "SELECT id FROM students WHERE id = (SELECT MAX(id) FROM students)";
+
+
+            ResultSet rs = conn.createStatement().executeQuery(newstudent);
+            System.out.println(rs.getString(1));
+            String idlaststudent = rs.getString(1);
+            int val = Integer.valueOf(idlaststudent) + 1;
+
+            String newtab = "CREATE TABLE '" + val  + "' ( '1' TEXT );";
+            PreparedStatement ps = conn.prepareStatement(newtab);
+            System.out.println(newtab);
+            ps.execute();
 
             stmt.execute();
             conn.close();
