@@ -335,9 +335,9 @@ public class AdminController implements Initializable
                 Connection conn = dbConnection.getConnection();
 
                 StudentData selecterow = studenttable.getSelectionModel().getSelectedItem();
-                String value = selecterow.getEmail();
-                String cell = "email";
-                String sqldelete = "DELETE FROM students WHERE email = '" + value + "' ;";
+                String value = selecterow.getID();
+                String cell = "id";
+                String sqldelete = "DELETE FROM students WHERE id = '" + value + "' ;";
                 System.out.println(sqldelete);
 
                 Statement stmt = null;
@@ -345,7 +345,10 @@ public class AdminController implements Initializable
                 stmt.executeUpdate(sqldelete);
 
                 studenttable.getItems().removeAll(selecterow);
-                System.out.println(cell);
+
+               String tabledelete = "DROP TABLE '" + value + "' ;" ;
+               Statement dltb = conn.createStatement();
+               stmt.executeUpdate(tabledelete);
 
                 conn.close();
 
