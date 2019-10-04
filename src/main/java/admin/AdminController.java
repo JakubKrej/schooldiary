@@ -169,22 +169,25 @@ public class AdminController implements Initializable
 
         String mark = selectmarkBOX.getValue().toString();
 
-        String newcol = "CREATE TABLE "+ value + " (  )";
+        String colname= " ";
 
-        String sql = "INSERT INTO 'stmarks' ('mark3') VALUES ('" + mark + "') ;" ;
+        String sql = "INSERT INTO '"+ value + "' ('') VALUES ('" + mark + "') ;" ;
+        String newcol = "ALTER TABLE '" + value + "' ADD '" + colname + "' TEXT";
 
         try {
             Connection conn = dbConnection.getConnection();
-            PreparedStatement stmt5 = conn.prepareStatement(sql);
+            //PreparedStatement stmt5 = conn.prepareStatement(sql);
 
-            PreparedStatement ile = conn.prepareStatement(newcol);
+
+
 
 
             if(this.selectmarkBOX.getValue().toString() != null) {
                 //stmt5.setString(1, this.selectmarkBOX.getEditor().getText());
-                System.out.println(ile);
+
 
                 System.out.println(this.selectmarkBOX.getEditor().getText());
+
             }else{
                 System.out.println( "Pole jest puste!");
             }
@@ -193,7 +196,11 @@ public class AdminController implements Initializable
         }catch (SQLException e) {
             e.printStackTrace();
         }
+
+
     }
+
+
 
 
     @FXML
