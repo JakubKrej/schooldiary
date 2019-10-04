@@ -170,7 +170,7 @@ public class AdminController implements Initializable
 
         String colname= " ";
 
-        String sql = "INSERT INTO '128' ('1') VALUES ('Niedostateczny') ;" ;
+        String sql = "INSERT INTO '128' ('1') VALUES (?) ;" ;
         String newcol = "ALTER TABLE '" + value + "' ADD '" + colname + "' TEXT";
 
         try {
@@ -178,17 +178,18 @@ public class AdminController implements Initializable
             PreparedStatement stmt5 = conn.prepareStatement(sql);
 
 
-
-
-
             if(this.selectmarkBOX.getValue().toString() != null) {
-                stmt5.setString(1, this.selectmarkBOX.getSelectionModel().getSelectedItem().toString());
                 System.out.println(sql);;
-                System.out.println(this.selectmarkBOX.getEditor().getText());
+                System.out.println(this.selectmarkBOX.getSelectionModel().getSelectedItem().toString());
+                stmt5.setString(1, this.selectmarkBOX.getSelectionModel().getSelectedItem().toString());
+
+                stmt5.execute();
 
             }else{
                 System.out.println( "Pole jest puste!");
             }
+
+            conn.close();
 
 
         }catch (SQLException e) {
