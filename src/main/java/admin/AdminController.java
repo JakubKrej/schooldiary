@@ -122,22 +122,21 @@ public class AdminController implements Initializable
 
                         System.out.println(value);
 
-                        String sqlmarks = "SELECT * FROM stmarks WHERE id = '" + value + "' ;";
+                        String sqlmarks = "SELECT * FROM '" + value +"' ;";
                         System.out.println( sqlmarks);
 
 
                         ResultSet rs = conn.createStatement().executeQuery(sqlmarks);
                         while (rs.next()) {
-                            this.data1.add(new MarksData(rs.getString(1),rs.getString(2),rs.getString(3)));
+                            this.data1.add(new MarksData(rs.getString(1)));
                         }
 
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
 
-                    IDcolumnmarks.setCellValueFactory(new PropertyValueFactory<MarksData,String>("ID"));
-                    mark1column.setCellValueFactory(new PropertyValueFactory<MarksData,String>("mark1"));
-                    mark2column.setCellValueFactory(new PropertyValueFactory<MarksData,String>("mark2"));
+                    IDcolumnmarks.setCellValueFactory(new PropertyValueFactory<MarksData,String>("mark"));
+
 
 
 
@@ -171,21 +170,20 @@ public class AdminController implements Initializable
 
         String colname= " ";
 
-        String sql = "INSERT INTO '"+ value + "' ('') VALUES ('" + mark + "') ;" ;
+        String sql = "INSERT INTO '128' ('1') VALUES ('Niedostateczny') ;" ;
         String newcol = "ALTER TABLE '" + value + "' ADD '" + colname + "' TEXT";
 
         try {
             Connection conn = dbConnection.getConnection();
-            //PreparedStatement stmt5 = conn.prepareStatement(sql);
+            PreparedStatement stmt5 = conn.prepareStatement(sql);
 
 
 
 
 
             if(this.selectmarkBOX.getValue().toString() != null) {
-                //stmt5.setString(1, this.selectmarkBOX.getEditor().getText());
-
-
+                stmt5.setString(1, this.selectmarkBOX.getSelectionModel().getSelectedItem().toString());
+                System.out.println(sql);;
                 System.out.println(this.selectmarkBOX.getEditor().getText());
 
             }else{
