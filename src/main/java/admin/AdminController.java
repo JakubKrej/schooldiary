@@ -198,9 +198,9 @@ public class AdminController implements Initializable
 
     @FXML
     private void selectedStudent(ActionEvent event){
-        if(studentTABLE.getSelectionModel().getSelectedItem()!=null){
+        if(studentTABLE.getSelectionModel().getSelectedItem()!=null) {
 
-            try{
+            try {
 
                 Connection conn = dbConnection.getConnection();
 
@@ -215,16 +215,16 @@ public class AdminController implements Initializable
                 stmt3.executeUpdate(sqlselected);
 
 
-
-
                 conn.close();
 
-            }catch (SQLException e) {
+            } catch (SQLException e) {
                 e.printStackTrace();
             }
 
 
         }
+
+
     }
 
 
@@ -300,6 +300,7 @@ public class AdminController implements Initializable
                 stmt.execute();
 
 
+
             }
 
             conn.close();
@@ -308,6 +309,40 @@ public class AdminController implements Initializable
             System.err.println(e.getMessage());
             this.errorLABEL.setText("                       Wprowadź poprawne dane!");
         }
+
+        try
+        {
+            Connection conn = dbConnection.getConnection();
+            this.data = FXCollections.observableArrayList();
+
+            ResultSet rs = conn.createStatement().executeQuery("SELECT * FROM students");
+            while (rs.next()) {
+                this.data.add(new StudentData(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
+            }
+
+        }
+        catch (SQLException e)
+        {
+            System.err.println("Error " + e);
+        }
+
+
+
+        this.idcolumn.setCellValueFactory(new PropertyValueFactory<StudentData,String >("ID"));
+        this.firstnamecolumn.setCellValueFactory(new PropertyValueFactory<StudentData,String >("firstName"));
+        this.lastnamecolumn.setCellValueFactory(new PropertyValueFactory<StudentData,String >("lastName"));
+        this.emailcolumn.setCellValueFactory(new PropertyValueFactory<StudentData,String >("email"));
+        this.dobcolumn.setCellValueFactory(new PropertyValueFactory<StudentData,String >("dob"));
+
+        this.idCOLUMN.setCellValueFactory(new PropertyValueFactory<StudentData, String>("ID"));
+        this.firstnameCOLUMN.setCellValueFactory(new PropertyValueFactory<StudentData, String>("firstName"));
+        this.lastnameCOLUMN.setCellValueFactory(new PropertyValueFactory<StudentData, String >("lastName"));
+
+        this.studenttable.setItems(null);
+        this.studenttable.setItems(this.data);
+
+        this.studentTABLE.setItems(null);
+        this.studentTABLE.setItems(this.data);
     }
 
 
@@ -348,7 +383,7 @@ public class AdminController implements Initializable
 
                String tabledelete = "DROP TABLE '" + value + "' ;" ;
                Statement dltb = conn.createStatement();
-               stmt.executeUpdate(tabledelete);
+               dltb.executeUpdate(tabledelete);
 
                 conn.close();
 
