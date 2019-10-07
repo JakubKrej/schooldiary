@@ -197,9 +197,7 @@
                                     </HBox>
                                     <TableView fx:id="marksTABLE" prefHeight="329.0" prefWidth="997.0">
                                       <columns>
-                                        <TableColumn fx:id="IDcolumnmarks" prefWidth="75.0" text="ID" />
-                                        <TableColumn fx:id="mark1column" prefWidth="75.0" text="mark1" />
-                                          <TableColumn fx:id="mark2column" prefWidth="75.0" text="mark2" />
+                                        <TableColumn fx:id="MARKcolumn" prefWidth="75.0" text="mark" />
                                       </columns>
                                     </TableView>
                                  </children>
