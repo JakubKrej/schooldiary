@@ -21,20 +21,10 @@ public class StudentsController {
     private dbConnection dc;
 
     @FXML
-    public void initialize(URL url, ResourceBundle rb){
+    public void initialize(URL url, ResourceBundle rb) {
 
         this.dc = new dbConnection();
 
-
-
-<<<<<<< HEAD
-=======
-
-       
->>>>>>> 5d3f56647803fb04c63e2f1293d09d07972c6de6
     }
-
-
-
 
 }

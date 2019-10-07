@@ -118,11 +118,7 @@ public class AdminController implements Initializable
 
                         System.out.println(value);
 
-<<<<<<< HEAD
                         String sqlmarks = "SELECT * FROM '" + value + "' ;";
-=======
-                        String sqlmarks = "SELECT * FROM '" + value +"' ;";
->>>>>>> 5d3f56647803fb04c63e2f1293d09d07972c6de6
                         System.out.println( sqlmarks);
 
 
@@ -135,13 +131,7 @@ public class AdminController implements Initializable
                         e.printStackTrace();
                     }
 
-<<<<<<< HEAD
                     MARKcolumn.setCellValueFactory(new PropertyValueFactory<MarksData,String>("mark"));
-=======
-                    IDcolumnmarks.setCellValueFactory(new PropertyValueFactory<MarksData,String>("mark"));
-
-
->>>>>>> 5d3f56647803fb04c63e2f1293d09d07972c6de6
 
 
                     marksTABLE.setItems(null);
@@ -176,29 +166,21 @@ public class AdminController implements Initializable
 
         String colname= " ";
 
-<<<<<<< HEAD
         String sql = "INSERT INTO '"+ value +"' ('1') VALUES ( ? ) ;" ;
-=======
-        String sql = "INSERT INTO '128' ('1') VALUES (?) ;" ;
->>>>>>> 5d3f56647803fb04c63e2f1293d09d07972c6de6
         String newcol = "ALTER TABLE '" + value + "' ADD '" + colname + "' TEXT";
 
         try {
             Connection conn = dbConnection.getConnection();
             PreparedStatement stmt5 = conn.prepareStatement(sql);
-<<<<<<< HEAD
 
 
             this.data2 = FXCollections.observableArrayList();
 
             if(this.selectmarkBOX.getValue().toString() != null) {
                 stmt5.setString(1, this.selectmarkBOX.getSelectionModel().getSelectedItem().toString());
-=======
->>>>>>> 5d3f56647803fb04c63e2f1293d09d07972c6de6
 
                 stmt5.execute();
 
-<<<<<<< HEAD
                 String getingmarks = "SELECT * FROM '" + value + "' ;";
 
                 System.out.println(getingmarks);
@@ -207,20 +189,10 @@ public class AdminController implements Initializable
                 while (rs.next()) {
                     this.data2.add(new MarksData(rs.getString(1)));
                 }
-=======
-            if(this.selectmarkBOX.getValue().toString() != null) {
-                System.out.println(sql);;
-                System.out.println(this.selectmarkBOX.getSelectionModel().getSelectedItem().toString());
-                stmt5.setString(1, this.selectmarkBOX.getSelectionModel().getSelectedItem().toString());
-
-                stmt5.execute();
->>>>>>> 5d3f56647803fb04c63e2f1293d09d07972c6de6
 
             }else{
                 System.out.println( "Pole jest puste!");
             }
-
-            conn.close();
 
 
         }catch (SQLException e) {
@@ -390,11 +362,11 @@ public class AdminController implements Initializable
     @FXML
     private void clearFields(ActionEvent event){
 
-            this.id.setText("");
-            this.firstname.setText("");
-            this.lastname.setText("");
-            this.email.setText("");
-            this.dob.setValue(null);
+        this.id.setText("");
+        this.firstname.setText("");
+        this.lastname.setText("");
+        this.email.setText("");
+        this.dob.setValue(null);
 
 
     }
@@ -420,9 +392,9 @@ public class AdminController implements Initializable
 
                 studenttable.getItems().removeAll(selecterow);
 
-               String tabledelete = "DROP TABLE '" + value + "' ;" ;
-               Statement dltb = conn.createStatement();
-               dltb.executeUpdate(tabledelete);
+                String tabledelete = "DROP TABLE '" + value + "' ;" ;
+                Statement dltb = conn.createStatement();
+                dltb.executeUpdate(tabledelete);
 
                 conn.close();
 
