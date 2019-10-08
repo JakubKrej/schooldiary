@@ -280,7 +280,9 @@ public class AdminController implements Initializable
     @FXML
     private void addStudent(ActionEvent event) {
         String sql = "INSERT INTO `students`( `fname`, `lname`, `email`, `DOB`) VALUES ( ?, ?, ?, ?)";
+        // String adduserstologintable = "INSERT INTO 'login' ('username', 'password', 'division') VALUES ( ?,?,?)";
         String newstudent = "SELECT id FROM students WHERE id = (SELECT MAX(id) FROM students)";
+        // String id = "SELECT id_users FROM students WHERE id_users = (SELECT MAX(id_users) FROM students)";
 
         this.errorLABEL.setText("");
 
