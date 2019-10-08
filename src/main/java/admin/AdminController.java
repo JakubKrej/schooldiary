@@ -146,13 +146,6 @@ public class AdminController implements Initializable
         this.selectmarkBOX.setItems(FXCollections.observableArrayList(Marks.values()));
     }
 
-    @FXML
-    public void selectMark(){
-
-        System.out.println( selectmarkBOX.getSelectionModel().getSelectedItem());
-
-
-    }
 
     private ObservableList<MarksData> data2;
 
@@ -162,12 +155,12 @@ public class AdminController implements Initializable
         StudentData cellectstudenttable = studentTABLE.getSelectionModel().getSelectedItem();
         String value =  cellectstudenttable.getID();
 
-        String mark = selectmarkBOX.getValue().toString();
+        //String mark = selectmarkBOX.getValue().toString();
 
-        String colname= " ";
+        //String colname= " ";
 
         String sql = "INSERT INTO '"+ value +"' ('1') VALUES ( ? ) ;" ;
-        String newcol = "ALTER TABLE '" + value + "' ADD '" + colname + "' TEXT";
+        //String newcol = "ALTER TABLE '" + value + "' ADD '" + colname + "' TEXT";
 
         try {
             Connection conn = dbConnection.getConnection();
@@ -218,7 +211,7 @@ public class AdminController implements Initializable
                 StudentData slcstudent = studentTABLE.getSelectionModel().getSelectedItem();
                 String value = slcstudent.getID();
 
-                String sqlselected = "SELECT id,fname,lname,email,DOB FROM students WHERE id = '" + value + "' ;";
+                String sqlselected = "SELECT id_users,fname,lname,email,DOB FROM students WHERE id_users = '" + value + "' ;";
                 System.out.println(sqlselected);
 
                 Statement stmt3 = null;
@@ -280,15 +273,16 @@ public class AdminController implements Initializable
     @FXML
     private void addStudent(ActionEvent event) {
         String sql = "INSERT INTO `students`( `fname`, `lname`, `email`, `DOB`) VALUES ( ?, ?, ?, ?)";
-        // String adduserstologintable = "INSERT INTO 'login' ('username', 'password', 'division') VALUES ( ?,?,?)";
-        String newstudent = "SELECT id FROM students WHERE id = (SELECT MAX(id) FROM students)";
-        // String id = "SELECT id_users FROM students WHERE id_users = (SELECT MAX(id_users) FROM students)";
+        String adduserstologintable = "INSERT INTO 'login' ('username', 'password', 'division') VALUES ( ?,?,?)";
+        String newstudent = "SELECT id_users FROM students WHERE id_users = (SELECT MAX(id_users) FROM students)";
+        String id = "SELECT id_users FROM students WHERE id_users = (SELECT MAX(id_users) FROM students)";
 
         this.errorLABEL.setText("");
 
         try {
             Connection conn = dbConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sql);
+            PreparedStatement stmt2 = conn.prepareStatement(adduserstologintable);
             ResultSet rs = conn.createStatement().executeQuery(newstudent);
 
             if (this.firstname.getText().equals("") || this.lastname.getText().equals("") || this.email.getText().equals("") || this.dob.getEditor().getText().equals("")) {
@@ -299,6 +293,10 @@ public class AdminController implements Initializable
                 stmt.setString(2, this.lastname.getText());
                 stmt.setString(3, this.email.getText());
                 stmt.setString(4, this.dob.getEditor().getText());
+
+                stmt2.setString(1, this.firstname.getText());
+                stmt2.setString(2, this.lastname.getText());
+                stmt2.setString(3, "Student");
 
 
                 //System.out.println(rs.getString(1));
@@ -311,6 +309,7 @@ public class AdminController implements Initializable
 
                 ps.execute();
                 stmt.execute();
+                stmt2.execute();
 
 
 
@@ -385,7 +384,7 @@ public class AdminController implements Initializable
                 StudentData selecterow = studenttable.getSelectionModel().getSelectedItem();
                 String value = selecterow.getID();
                 String cell = "id";
-                String sqldelete = "DELETE FROM students WHERE id = '" + value + "' ;";
+                String sqldelete = "DELETE FROM students WHERE id_users = '" + value + "' ;";
                 System.out.println(sqldelete);
 
                 Statement stmt = null;
