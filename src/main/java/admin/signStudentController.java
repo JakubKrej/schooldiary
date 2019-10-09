@@ -93,7 +93,7 @@ public class signStudentController implements Initializable {
                 lgapp.start(stage);
 
 
-                String newstudent = "SELECT id FROM students WHERE id = (SELECT MAX(id) FROM students)";
+                String newstudent = "SELECT id_users FROM students WHERE id_users = (SELECT MAX(id_users) FROM students)";
 
 
                 ResultSet rs = conn.createStatement().executeQuery(newstudent);

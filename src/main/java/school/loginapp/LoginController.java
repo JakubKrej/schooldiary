@@ -79,9 +79,13 @@ public class LoginController implements Initializable {
                         break;
                 }
 
-            }else{
+
+
+            }else
+                {
                     this.loginstatus.setText("Try again!");
-            }
+                }
+
 
         } catch (Exception e) {
 

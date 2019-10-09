@@ -275,7 +275,7 @@ public class AdminController implements Initializable
         String sql = "INSERT INTO `students`( `fname`, `lname`, `email`, `DOB`) VALUES ( ?, ?, ?, ?)";
         String adduserstologintable = "INSERT INTO 'login' ('username', 'password', 'division') VALUES ( ?,?,?)";
         String newstudent = "SELECT id_users FROM students WHERE id_users = (SELECT MAX(id_users) FROM students)";
-        String id = "SELECT id_users FROM students WHERE id_users = (SELECT MAX(id_users) FROM students)";
+        String id = "SELECT id_login FROM login WHERE id_login = (SELECT MAX(id_login) FROM login)";
 
         this.errorLABEL.setText("");
 
@@ -284,6 +284,8 @@ public class AdminController implements Initializable
             PreparedStatement stmt = conn.prepareStatement(sql);
             PreparedStatement stmt2 = conn.prepareStatement(adduserstologintable);
             ResultSet rs = conn.createStatement().executeQuery(newstudent);
+            ResultSet rs1 = conn.createStatement().executeQuery(id);
+
 
             if (this.firstname.getText().equals("") || this.lastname.getText().equals("") || this.email.getText().equals("") || this.dob.getEditor().getText().equals("")) {
                 this.errorLABEL.setText("                       Wprowadź poprawne dane!");
@@ -298,18 +300,32 @@ public class AdminController implements Initializable
                 stmt2.setString(2, this.lastname.getText());
                 stmt2.setString(3, "Student");
 
+                stmt.execute();
+                stmt2.execute();
 
-                //System.out.println(rs.getString(1));
+
                 String idlaststudent = rs.getString(1);
                 int val = Integer.valueOf(idlaststudent) + 1;
+
+                String idlastlogin = rs1.getString(1);
+                int valst = Integer.valueOf(idlastlogin) + 1;
+
+                String insertintoid = "UPDATE 'login' SET 'id_userslogin' = '" + val +"' WHERE id_login = '" + valst + "' ;";
+                System.out.println(insertintoid);
+
+                PreparedStatement stmt3 = conn.prepareStatement(insertintoid);
+
+
 
                 String newtab = "CREATE TABLE '" + val + "' ( '1' TEXT );";
                 PreparedStatement ps = conn.prepareStatement(newtab);
                 System.out.println(newtab);
 
+
                 ps.execute();
-                stmt.execute();
-                stmt2.execute();
+                stmt3.execute();
+
+
 
 
 
