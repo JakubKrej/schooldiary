@@ -32,35 +32,33 @@ public class LoginModel {
 
         PreparedStatement pr = null;
         ResultSet rs = null;
+        System.out.println(user + pass + opt);
 
         String sql = "SELECT * FROM login where username = ? and password = ? and division = ?";
 
-        try{
+        if(user.equals("admin")  && pass.equals("admin") && opt.equals("Admin")){
+            return true;
+        }else {
+            try {
 
-            pr = this.connection.prepareStatement(sql);
-            pr.setString(1, user);
-            pr.setString(2, pass);
-            pr.setString(3, opt);
+                pr = this.connection.prepareStatement(sql);
+                pr.setString(1, user);
+                pr.setString(2, pass);
+                pr.setString(3, opt);
 
-            rs=pr.executeQuery();
+                rs = pr.executeQuery();
 
-            if(rs.next()){
-                return true;
-            }else
-            if(user == "admin" && pass == "admin" && opt == "Admin"){
-                return true;
-            }
-            return false;
-        }
-        catch (SQLException ex){
-            return false;
-        }
-
-
-        finally {
-            {
-                pr.close();
-                rs.close();
+                if (rs.next()) {
+                    return true;
+                } else
+                    return false;
+            } catch (SQLException ex) {
+                return false;
+            } finally {
+                {
+                    pr.close();
+                    rs.close();
+                }
             }
         }
     }
