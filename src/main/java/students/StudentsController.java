@@ -7,6 +7,7 @@ import dbUtil.dbConnection;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -14,13 +15,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import school.loginapp.LoginController;
 import school.loginapp.LoginModel;
 
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class StudentsController {
+public class StudentsController implements Initializable {
 
     @FXML
     private Label nameLABELST;
@@ -42,14 +44,24 @@ public class StudentsController {
 
         this.dc = new dbConnection();
 
+        LoginController LC = new LoginController();
+        idLABEL.setText(LC.Login().);
+
+
+        //LoginController LC = new LoginController();
+        //System.out.println(LC.Login());
+
+        //nameLABELST.setText(LC.Login().toString());
+
+
 
     }
 
-    public void setValue(String s1,String s2, String s3,String s4){
+    public void setValue(String s1){
         nameLABELST.setText(s1);
-        lastnameLABELST.setText(s2);
-        emailLABELST.setText(s3);
-        idLABEL.setText(s4);
+        //lastnameLABELST.setText(s2);
+        //emailLABELST.setText(s3);
+        //idLABEL.setText(s4);
     }
 
 
