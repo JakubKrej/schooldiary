@@ -23,6 +23,10 @@ public class LoginModel {
         }
     }
 
+    String id ;
+    String fn;
+    String ln;
+    String em;
 
     public boolean isDatabaseConnected(){
         return this.connection != null;
@@ -43,19 +47,31 @@ public class LoginModel {
                 pr.setString(2, pass);
                 pr.setString(3, opt);
 
-
                 rs = pr.executeQuery();
-
 
                 if(user.equals("admin")  && pass.equals("admin") && opt.equals("Admin")){
                     return true;
                 }else
                 if (rs.next()) {
-                    String a = rs.getString("id_userslogin");
-                    System.out.println(a);
+                    id = rs.getString("id_userslogin");
+                    System.out.println(id);
+
                     return true;
                 } else
                     return false;
+
+                String sql2= "SELECT * FROM students WHERE id_users = '" + id + "' ;";
+                ResultSet rs1 = connection.createStatement().executeQuery(sql2);
+
+                fn = rs1.getString("fname");
+                ln = rs1.getString("lname");
+                em = rs1.getString("email");
+                System.out.println(fn);
+                System.out.println(ln);
+                System.out.println(em);
+
+                rs1.close();
+                
             } catch (SQLException ex) {
                 return false;
             } finally

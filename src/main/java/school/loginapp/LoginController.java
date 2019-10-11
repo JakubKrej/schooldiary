@@ -99,6 +99,9 @@ public class LoginController implements Initializable {
             FXMLLoader loader = new FXMLLoader();
             Pane root = (Pane)loader.load(getClass().getResource("/fxml/studentFXML.fxml").openStream());
 
+            //LoginModel LM = new LoginModel();
+            //StudentsController controller = (StudentsController) loader.getController();
+            //controller.setValue( LM.a., );
 
             Scene scene = new Scene(root);
             adminstage.setScene(scene);
