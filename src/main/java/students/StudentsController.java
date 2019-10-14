@@ -17,6 +17,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import school.loginapp.LoginController;
 import school.loginapp.LoginModel;
+import school.loginapp.Option;
 
 import java.io.IOException;
 import java.net.URL;
@@ -45,23 +46,16 @@ public class StudentsController implements Initializable {
         this.dc = new dbConnection();
 
         LoginController LC = new LoginController();
-        idLABEL.setText(LC.Login().);
-
-
-        //LoginController LC = new LoginController();
-        //System.out.println(LC.Login());
-
-        //nameLABELST.setText(LC.Login().toString());
-
-
+        LoginModel LM = new LoginModel();
 
     }
 
-    public void setValue(String s1){
-        nameLABELST.setText(s1);
-        //lastnameLABELST.setText(s2);
-        //emailLABELST.setText(s3);
-        //idLABEL.setText(s4);
+    public StudentsController(String s1){
+        idLABEL.setText("Slon");
+    }
+
+    public StudentsController(){
+
     }
 
 

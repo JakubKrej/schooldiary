@@ -7,12 +7,17 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 
+import java.io.IOException;
 import java.net.URL;
 import java.sql.*;
 import java.util.ResourceBundle;
@@ -67,6 +72,8 @@ public class AdminController implements Initializable
     private Button addmarkBUTTON;
     @FXML
     private Button deleteBUTTON;
+    @FXML
+    private Button logoutBUTTON;
     @FXML
     private TableColumn<MarksData,String> MARKcolumn;
 
@@ -187,6 +194,8 @@ public class AdminController implements Initializable
                 System.out.println( "Pole jest puste!");
             }
 
+
+            conn.close();
 
         }catch (SQLException e) {
             e.printStackTrace();
@@ -423,6 +432,27 @@ public class AdminController implements Initializable
         }
 
 
+    }
+
+    @FXML
+    private void logOUT(ActionEvent event){
+
+        try {
+            Stage stage = (Stage) this.logoutBUTTON.getScene().getWindow();
+            stage.close();
+
+            Stage singstage = new Stage();
+            FXMLLoader loader = new FXMLLoader();
+            Parent root = (Parent) FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
+
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.setTitle("School Managment System");
+            stage.show();
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
 
