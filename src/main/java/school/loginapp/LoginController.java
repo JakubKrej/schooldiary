@@ -73,8 +73,6 @@ public class LoginController implements Initializable {
                 Stage stage = (Stage) this.loginbutton.getScene().getWindow();
                 stage.close();
 
-                String b = loginModel.isLogin1(this.username.getText(), this.password.getText(), ((Option) this.combobox.getValue()).toString());
-
 
                 switch (((Option) this.combobox.getValue()).toString()) {
 
@@ -82,7 +80,6 @@ public class LoginController implements Initializable {
                         adminLogin();
                         break;
                     case "Student":
-                        System.out.println(b+22);
                         studentLogin();
                         break;
 
@@ -105,9 +102,6 @@ public class LoginController implements Initializable {
 
 
 
-
-
-
     public void studentLogin(){
         try{
             Stage adminstage = new Stage();
@@ -116,8 +110,8 @@ public class LoginController implements Initializable {
 
 
             String b = loginModel.isLogin1(this.username.getText(), this.password.getText(), ((Option) this.combobox.getValue()).toString());
-            System.out.println(b);
-            StudentsController SC = new StudentsController(b);
+            StudentsController SC = loader.getController();
+            SC.SetLabelID(b);
 
 
             Scene scene = new Scene(root);

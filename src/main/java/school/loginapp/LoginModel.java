@@ -30,7 +30,7 @@ public class LoginModel {
         return this.connection != null;
     }
 
-    public String isLogin1(String  user, String pass, String opt) throws Exception{
+    public String isLogin1(String  user, String pass, String opt) throws Exception{  // i know it's bad solution. I will try to change it ..
 
         PreparedStatement pr = null;
         ResultSet rs = null;

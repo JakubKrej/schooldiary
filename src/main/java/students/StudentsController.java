@@ -45,19 +45,17 @@ public class StudentsController implements Initializable {
 
         this.dc = new dbConnection();
 
-        LoginController LC = new LoginController();
-        LoginModel LM = new LoginModel();
 
     }
 
-    public StudentsController(String s1){
-        idLABEL.setText("Slon");
-    }
 
     public StudentsController(){
 
     }
 
+    public void SetLabelID(String s2){
+        this.idLABEL.setText(s2);
+    }
 
     public void logOut(ActionEvent event){
 
