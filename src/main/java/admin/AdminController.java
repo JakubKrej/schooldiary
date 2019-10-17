@@ -138,7 +138,7 @@ public class AdminController implements Initializable
                         e.printStackTrace();
                     }
 
-                    MARKcolumn.setCellValueFactory(new PropertyValueFactory<MarksData,String>("mark"));
+                    MARKcolumn.setCellValueFactory(new PropertyValueFactory<MarksData,String>("marks"));
 
 
                     marksTABLE.setItems(null);

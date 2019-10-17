@@ -2,8 +2,11 @@ package students;
 
 import admin.AdminController;
 import admin.Marks;
+import admin.MarksData;
 import admin.StudentData;
 import dbUtil.dbConnection;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -12,7 +15,9 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import school.loginapp.LoginController;
@@ -21,6 +26,9 @@ import school.loginapp.Option;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 
 public class StudentsController implements Initializable {
@@ -34,7 +42,9 @@ public class StudentsController implements Initializable {
     @FXML
     private Label idLABEL;
     @FXML
-    private TableView<Marks> stmarksTABLE;
+    private TableView<MarksData> marksTABLEST;
+    @FXML
+    private TableColumn<MarksData,String> stmarksCOLUMN;
     @FXML
     private Button logOUT;
 
@@ -54,7 +64,28 @@ public class StudentsController implements Initializable {
     }
 
     public void SetLabelID(String s2){
+
         this.idLABEL.setText(s2);
+
+    }
+
+    private ObservableList<MarksData> data;
+
+    public void getInfo() throws SQLException {
+
+        Connection conn = dbConnection.getConnection();
+        data = FXCollections.observableArrayList();
+
+        String selectinfo = "SELECT * FROM students where id_users = '" + this.idLABEL.getText() + "' ;";
+        System.out.println(selectinfo);
+
+        ResultSet rs = conn.createStatement().executeQuery(selectinfo);
+        this.nameLABELST.setText(rs.getString(2));
+        this.lastnameLABELST.setText(rs.getString(3));
+        this.emailLABELST.setText(rs.getString(4));
+
+       
+
     }
 
     public void logOut(ActionEvent event){

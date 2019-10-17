@@ -112,6 +112,8 @@ public class LoginController implements Initializable {
             String b = loginModel.isLogin1(this.username.getText(), this.password.getText(), ((Option) this.combobox.getValue()).toString());
             StudentsController SC = loader.getController();
             SC.SetLabelID(b);
+            SC.getInfo();
+
 
 
             Scene scene = new Scene(root);

@@ -44,7 +44,7 @@
             </VBox>
             <TableView fx:id="marksTABLEST" prefHeight="360.0" prefWidth="122.0">
               <columns>
-                <TableColumn minWidth="110.0" prefWidth="120.0" text="marks" />
+                <TableColumn fx:id="stmarksCOLUMN" minWidth="110.0" prefWidth="120.0" text="marks" />
               </columns>
                <HBox.margin>
                   <Insets bottom="20.0" right="20.0" top="20.0" />
