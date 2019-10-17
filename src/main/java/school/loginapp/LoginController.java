@@ -112,15 +112,15 @@ public class LoginController implements Initializable {
             String b = loginModel.isLogin1(this.username.getText(), this.password.getText(), ((Option) this.combobox.getValue()).toString());
             StudentsController SC = loader.getController();
             SC.SetLabelID(b);
-            SC.getInfo();
-
-
 
             Scene scene = new Scene(root);
             adminstage.setScene(scene);
             adminstage.setTitle("Student Dashboard");
             adminstage.setResizable(false);
             adminstage.show();
+
+            SC.getInfo();
+
 
         } catch (Exception e) {
             e.printStackTrace();

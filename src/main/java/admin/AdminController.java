@@ -134,11 +134,13 @@ public class AdminController implements Initializable
                             this.data1.add(new MarksData(rs.getString(1)));
                         }
 
+                        conn.close();
+
                     } catch (SQLException e) {
                         e.printStackTrace();
                     }
 
-                    MARKcolumn.setCellValueFactory(new PropertyValueFactory<MarksData,String>("marks"));
+                    MARKcolumn.setCellValueFactory(new PropertyValueFactory<MarksData,String>("mark"));
 
 
                     marksTABLE.setItems(null);
@@ -162,12 +164,10 @@ public class AdminController implements Initializable
         StudentData cellectstudenttable = studentTABLE.getSelectionModel().getSelectedItem();
         String value =  cellectstudenttable.getID();
 
-        //String mark = selectmarkBOX.getValue().toString();
 
-        //String colname= " ";
 
         String sql = "INSERT INTO '"+ value +"' ('1') VALUES ( ? ) ;" ;
-        //String newcol = "ALTER TABLE '" + value + "' ADD '" + colname + "' TEXT";
+
 
         try {
             Connection conn = dbConnection.getConnection();

@@ -5,6 +5,7 @@ import admin.Marks;
 import admin.MarksData;
 import admin.StudentData;
 import dbUtil.dbConnection;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -44,9 +45,14 @@ public class StudentsController implements Initializable {
     @FXML
     private TableView<MarksData> marksTABLEST;
     @FXML
-    private TableColumn<MarksData,String> stmarksCOLUMN;
+    private TableColumn<MarksData,String > stmarksCOLUMN;
     @FXML
     private Button logOUT;
+    @FXML
+    private Button loadmarksBUTTON;
+
+    private ObservableList<MarksData> data3;
+
 
     private dbConnection dc;
 
@@ -58,7 +64,6 @@ public class StudentsController implements Initializable {
 
     }
 
-
     public StudentsController(){
 
     }
@@ -69,24 +74,61 @@ public class StudentsController implements Initializable {
 
     }
 
-    private ObservableList<MarksData> data;
+    @FXML
+    private void loadMarks(ActionEvent event){
 
-    public void getInfo() throws SQLException {
+        try {
+            Connection conn = dbConnection.getConnection();
+            this.data3 = FXCollections.observableArrayList();
 
-        Connection conn = dbConnection.getConnection();
-        data = FXCollections.observableArrayList();
 
-        String selectinfo = "SELECT * FROM students where id_users = '" + this.idLABEL.getText() + "' ;";
-        System.out.println(selectinfo);
+            ResultSet rs1 = conn.createStatement().executeQuery("SELECT * FROM '" + this.idLABEL.getText() + "' ;");
+            while (rs1.next()) {
+                this.data3.add(new MarksData(rs1.getString("1")));
 
-        ResultSet rs = conn.createStatement().executeQuery(selectinfo);
-        this.nameLABELST.setText(rs.getString(2));
-        this.lastnameLABELST.setText(rs.getString(3));
-        this.emailLABELST.setText(rs.getString(4));
+            }
 
-       
+
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+
+
+        this.stmarksCOLUMN.setCellValueFactory(new PropertyValueFactory<MarksData,String>("mark"));
+
+        this.marksTABLEST.setItems(null);
+        this.marksTABLEST.setItems(this.data3);
+    }
+
+
+
+    public void getInfo() {
+
+        try {
+
+            Connection conn = dbConnection.getConnection();
+            data3 = FXCollections.observableArrayList();
+
+            String selectinfo = "SELECT * FROM students where id_users = '" + this.idLABEL.getText() + "' ;";
+            System.out.println(selectinfo);
+
+            ResultSet rs = conn.createStatement().executeQuery(selectinfo);
+            this.nameLABELST.setText(rs.getString(2));
+            this.lastnameLABELST.setText(rs.getString(3));
+            this.emailLABELST.setText(rs.getString(4));
+
+
+            conn.close();
+
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
 
     }
+
+
 
     public void logOut(ActionEvent event){
 

@@ -26,6 +26,4 @@ public class MarksData {
         this.mark.set(mark);
     }
 
-
-
 }
