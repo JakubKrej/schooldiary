@@ -60,11 +60,15 @@ public class signStudentController implements Initializable {
 
         String sqlUsers = "INSERT INTO 'login' ('username', 'password', 'division') VALUES (?,?, ?)";
         String sql = "INSERT INTO `students`( `fname`, `lname`, `email`, `DOB`) VALUES ( ?, ?, ?, ?)";
+        String newstudent = "SELECT id_users FROM students WHERE id_users = (SELECT MAX(id_users) FROM students)";
+        String id = "SELECT id_login FROM login WHERE id_login = (SELECT MAX(id_login) FROM login)";
 
         try{
             Connection conn = dbConnection.getConnection();
             PreparedStatement stmt = conn.prepareStatement(sqlUsers);
             PreparedStatement stmt2 = conn.prepareStatement(sql);
+            ResultSet rs2 = conn.createStatement().executeQuery(newstudent);
+            ResultSet rs3 = conn.createStatement().executeQuery(id);
 
             if(this.userLOGIN.getText().equals("") || this.userPASSWORD.getText().equals("") || this.userFIRSTNAME.getText().equals("") || this.userLASTNAME.getText().equals("") || this.userEMAIL.getText().equals("") || this.signDATE.getEditor().getText().equals("")){
                 this.errorTEXT.setText("   Complete all fields!");
@@ -84,6 +88,19 @@ public class signStudentController implements Initializable {
                 stmt2.execute();
 
 
+                String idlaststudent = rs2.getString(1);
+                int val = Integer.valueOf(idlaststudent) + 1;
+
+                String idlastlogin = rs3.getString(1);
+                int valst = Integer.valueOf(idlastlogin) + 1;
+
+                String insertintoid = "UPDATE 'login' SET 'id_userslogin' = '" + val +"' WHERE id_login = '" + valst + "' ;";
+                System.out.println(insertintoid);
+
+                PreparedStatement stmt3 = conn.prepareStatement(insertintoid);
+                stmt3.execute();
+
+
 
                 Stage stage = (Stage) this.joinBUTTON.getScene().getWindow();
                 stage.close();
@@ -91,16 +108,9 @@ public class signStudentController implements Initializable {
 
                 LoginApp lgapp = new LoginApp();
                 lgapp.start(stage);
+                
 
-
-                String newstudent = "SELECT id_users FROM students WHERE id_users = (SELECT MAX(id_users) FROM students)";
-
-
-                ResultSet rs = conn.createStatement().executeQuery(newstudent);
-                System.out.println(rs.getString(1));
-                String idlaststudent = rs.getString(1);
-
-                String newtab = "CREATE TABLE '" + idlaststudent + "' ( '1' TEXT );";
+                String newtab = "CREATE TABLE '" + val + "' ( '1' TEXT );";
                 PreparedStatement ps = conn.prepareStatement(newtab);
                 System.out.println(newtab);
                 ps.execute();
